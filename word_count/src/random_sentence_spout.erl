@@ -18,7 +18,7 @@ open(_Args) ->
 next_tuple(Output, Sentences) ->
   timer:sleep(1000),
   Idx = random:uniform(5) - 1,
-  spout:emit(Output, element(Idx, {Sentences})),
+  spout:emit(Output, {element(Idx, Sentences)}),
   {ok, Sentences}.
 
 declare_output_fields(_Args) ->
