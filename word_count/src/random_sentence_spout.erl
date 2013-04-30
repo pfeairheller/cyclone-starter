@@ -16,8 +16,8 @@ open(_Args) ->
     "i am at two with nature"}}.
 
 next_tuple(Output, Sentences) ->
-  timer:sleep(1000),
-  Idx = random:uniform(5) - 1,
+  timer:sleep(10),
+  Idx = random:uniform(5),
   spout:emit(Output, {element(Idx, Sentences)}),
   {ok, Sentences}.
 

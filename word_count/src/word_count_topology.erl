@@ -19,7 +19,7 @@ init() ->
       #spout_spec{
         id = "spout",
         spout = {random_sentence_spout, []},
-        workers = 5
+        workers = 1
       }
     ],
 
@@ -27,29 +27,25 @@ init() ->
       #bolt_spec{
         id = "split",
         bolt = {split_sentence_bolt, []},
-        workers = 8
+        groupings = [
+          #grouping {
+            source = "spout",
+            type = shuffle
+          }
+        ]
       },
       #bolt_spec{
         id = "count",
         bolt = {word_count_bolt, []},
-        workers = 12
-      }
-    ],
-
-    groupings = [
-      #grouping{
-        source = "spout",
-        dest = "split",
-        type = shuffle
-      },
-      #grouping{
-        source = "split",
-        dest = "count",
-        type = field,
-        args = ["word"]
+        groupings = [
+          #grouping{
+            source = "split",
+            type = field,
+            args = ["word"]
+          }
+        ]
       }
     ]
-
 
   }.
 
